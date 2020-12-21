@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddPublicationAction extends Action {
     @Override
     public String doAction(HttpServletRequest req, HttpServletResponse resp) {
-        try{
+        try {
             String theme = req.getParameter("theme");
             String name = req.getParameter("name");
             String score = req.getParameter("score");
@@ -29,8 +29,8 @@ public class AddPublicationAction extends Action {
             );
 
             return "Publication";
-        }catch (Exception e){
-            req.setAttribute("error",e.getMessage());
+        } catch (Exception e) {
+            req.setAttribute("error", e.getMessage());
         }
         return null;
     }

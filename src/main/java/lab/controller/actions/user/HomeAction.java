@@ -14,13 +14,13 @@ public class HomeAction extends Action {
     @Override
     public String doAction(HttpServletRequest req, HttpServletResponse resp) {
         AccountsService accountsService = new AccountsService();
-        User user = (User)req.getSession().getAttribute("user");
-        req.getSession().setAttribute("account",accountsService.getUsersAccount(user.getUser_id()));
+        User user = (User) req.getSession().getAttribute("user");
+        req.getSession().setAttribute("account", accountsService.getUsersAccount(user.getUser_id()));
 
         SubscriptionService subscriptionService = new SubscriptionService();
         ArrayList<Publication> subscriptions = subscriptionService.getClientSubscription(user.getUser_id());
 
-        req.setAttribute("subscriptions",subscriptions);
+        req.setAttribute("subscriptions", subscriptions);
 
         return "/jsp/user/home.jsp";
     }

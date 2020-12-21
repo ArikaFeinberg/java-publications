@@ -19,10 +19,10 @@ public class EnterFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) servletResponse;
         String contextPath = req.getContextPath();
         HttpSession session = req.getSession();
-        if(session!=null && (session.getAttribute("user"))!=null){
-            filterChain.doFilter(servletRequest,servletResponse);
-        } else{
-            res.sendRedirect(contextPath +"/Guest");
+        if (session != null && (session.getAttribute("user")) != null) {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
+            res.sendRedirect(contextPath + "/Guest");
         }
     }
 

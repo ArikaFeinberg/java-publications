@@ -23,12 +23,12 @@ public class AdminFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) servletResponse;
         String contextPath = req.getContextPath();
         HttpSession session = req.getSession();
-        if(session!=null ) {
-            if(((User)(session.getAttribute("user"))).getRole() == Role.ADMIN)
-            filterChain.doFilter(servletRequest,servletResponse);
-            else res.sendRedirect(contextPath +"/User/Home");
+        if (session != null) {
+            if (((User) (session.getAttribute("user"))).getRole() == Role.ADMIN)
+                filterChain.doFilter(servletRequest, servletResponse);
+            else res.sendRedirect(contextPath + "/User/Home");
         } else {
-            res.sendRedirect(contextPath +"/Guest");
+            res.sendRedirect(contextPath + "/Guest");
         }
     }
 

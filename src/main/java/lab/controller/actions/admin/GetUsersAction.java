@@ -16,7 +16,7 @@ public class GetUsersAction extends Action {
 
         ArrayList<User> users = userService.getAll();
 
-        Pagination.pagination(req,users,"users",5);
+        Pagination.pagination(req, users, "users", 5);
 
         return "/jsp/admin/users.jsp";
     }

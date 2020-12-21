@@ -10,11 +10,11 @@ public class User {
     private String email;
     private Boolean blocked;
 
-    User(){
+    User() {
 
     }
 
-    User(UserBuilder userBuilder){
+    User(UserBuilder userBuilder) {
         this.user_id = userBuilder.user_id;
         this.userName = userBuilder.userName;
         this.role = userBuilder.role;
@@ -72,7 +72,7 @@ public class User {
     }
 
 
-    public static class UserBuilder{
+    public static class UserBuilder {
         private int user_id;
         private String userName;
         private Role role;
@@ -114,8 +114,9 @@ public class User {
             this.blocked = blocked;
             return this;
         }
-        public User build(){
-            return  new User(this);
+
+        public User build() {
+            return new User(this);
         }
     }
 }

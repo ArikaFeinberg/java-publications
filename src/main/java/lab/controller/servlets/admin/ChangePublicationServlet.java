@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value="/Admin/Change")
+@WebServlet(value = "/Admin/Change")
 public class ChangePublicationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Action action = new GetPublicationAction();
         String way = action.doAction(req, resp);
-        if(way!=null)
+        if (way != null)
             getServletContext()
-                .getRequestDispatcher(way)
-                .forward(req, resp);
+                    .getRequestDispatcher(way)
+                    .forward(req, resp);
         else resp.sendRedirect("Publication");
     }
 
@@ -29,7 +29,7 @@ public class ChangePublicationServlet extends HttpServlet {
         Action action = new ChangePublicationAction();
         String way = action.doAction(req, resp);
 
-        if(way == null) doGet(req, resp);
+        if (way == null) doGet(req, resp);
         else resp.sendRedirect(way);
     }
 }

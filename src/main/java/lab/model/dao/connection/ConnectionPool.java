@@ -14,11 +14,13 @@ public class ConnectionPool {
 
     private static final String PROPERTIES_FILE_NAME = "C:\\Users\\User\\IdeaProjects\\java-publications\\db.properties";
     private static volatile DataSource dataSource;
-    private ConnectionPool(){
+
+    private ConnectionPool() {
 
     }
-    private static DataSource getDataSource(){
-        if (dataSource==null) {
+
+    private static DataSource getDataSource() {
+        if (dataSource == null) {
             Path propertiesPath = null;
             propertiesPath = Paths.get(PROPERTIES_FILE_NAME);
 
@@ -48,7 +50,7 @@ public class ConnectionPool {
     public static Connection getConnection() {
         try {
             return getDataSource().getConnection();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException();
         }
     }

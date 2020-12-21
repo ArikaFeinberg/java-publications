@@ -1,6 +1,6 @@
 package lab.controller.validator.exeptions;
 
-public class NotEmailException extends RuntimeException{
+public class NotEmailException extends RuntimeException {
     NotEmailException() {
         super("This is not email.");
     }

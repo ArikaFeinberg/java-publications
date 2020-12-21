@@ -17,20 +17,20 @@ public class GuestAction extends Action {
 
         ArrayList<Publication> publications = publicationService.getAll();
 
-        if(req.getParameter("search")!=null){
-            publications = publicationService.getByName(publications,req.getParameter("search"));
+        if (req.getParameter("search") != null) {
+            publications = publicationService.getByName(publications, req.getParameter("search"));
         }
-        if(req.getParameter("theme")!=null && !req.getParameter("theme").equals("")){
+        if (req.getParameter("theme") != null && !req.getParameter("theme").equals("")) {
             Theme theme = Theme.valueOf(req.getParameter("theme").toUpperCase());
-            publications = publicationService.getByTheme(publications,theme);
+            publications = publicationService.getByTheme(publications, theme);
         }
 
-        if(req.getParameter("sort")!=null){
-            publicationService.sort(publications,Integer.parseInt(req.getParameter("sort")));
+        if (req.getParameter("sort") != null) {
+            publicationService.sort(publications, Integer.parseInt(req.getParameter("sort")));
         }
 
-        Pagination.pagination( req, publications,"publications",5);
-        req.setAttribute("m",1);
+        Pagination.pagination(req, publications, "publications", 5);
+        req.setAttribute("m", 1);
         return "/jsp/guest.jsp";
     }
 }

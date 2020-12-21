@@ -6,20 +6,20 @@ import lab.model.dao.entities.enums.Role;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UsersDAO extends AbstractDAO<User>{
+public class UsersDAO extends AbstractDAO<User> {
     UsersDAO(Connection connection) {
         super(connection);
     }
 
     @Override
     public User getByID(int id) {
-        Statement statement=null;
+        Statement statement = null;
         User user = null;
-        try{
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            statement=connection.createStatement();
-            ResultSet resultSet=statement.executeQuery("select * from users where user_id = " + id);
-            if(resultSet.next()) {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from users where user_id = " + id);
+            if (resultSet.next()) {
                 user = new User.UserBuilder().
                         setUser_id(resultSet.getInt(1)).
                         setUserName(resultSet.getString(2))
@@ -29,11 +29,9 @@ public class UsersDAO extends AbstractDAO<User>{
                         .setBlocked(!resultSet.getString(6).equals("N"))
                         .build();
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
-        }
-        finally {
+        } finally {
             closeStatement(statement);
             return user;
         }
@@ -41,46 +39,44 @@ public class UsersDAO extends AbstractDAO<User>{
 
     @Override
     public void insert(User user) {
-        try{
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String sql = "INSERT INTO Users(userName," +
                     "password," +
                     "email) " +
                     "VALUES( ? , ? , ? )";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,user.getUserName());
-            preparedStatement.setString(2,user.getPassword());
-            preparedStatement.setString(3,user.getEmail());
+            preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getEmail());
             preparedStatement.executeUpdate();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
         }
     }
 
     @Override
     public void update(User user) {
-        try{
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String sql = " UPDATE Users SET blocked = ? WHERE USER_ID = ? ";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,user.getBlocked() ? "Y" : "N");
-            preparedStatement.setInt(2,user.getUser_id());
+            preparedStatement.setString(1, user.getBlocked() ? "Y" : "N");
+            preparedStatement.setInt(2, user.getUser_id());
             preparedStatement.executeUpdate();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
         }
     }
 
     @Override
     public ArrayList<User> getAll() {
-        Statement statement=null;
-        ArrayList <User> users = new ArrayList<>();
-        try{
+        Statement statement = null;
+        ArrayList<User> users = new ArrayList<>();
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            statement=connection.createStatement();
-            ResultSet resultSet=statement.executeQuery("select * from users where role = 'USER' ");
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from users where role = 'USER' ");
             while (resultSet.next()) {
                 users.add(new User.UserBuilder().
                         setUser_id(resultSet.getInt(1)).
@@ -91,11 +87,9 @@ public class UsersDAO extends AbstractDAO<User>{
                         .setBlocked(!resultSet.getString(6).equals("N"))
                         .build());
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
-        }
-        finally {
+        } finally {
             closeStatement(statement);
             return users;
         }
@@ -103,12 +97,12 @@ public class UsersDAO extends AbstractDAO<User>{
 
     @Override
     public ArrayList<User> getWhere(String str) {
-        Statement statement=null;
-        ArrayList <User> users = new ArrayList<>();
-        try{
+        Statement statement = null;
+        ArrayList<User> users = new ArrayList<>();
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            statement=connection.createStatement();
-            ResultSet resultSet=statement.executeQuery("select * from users where " + str);
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from users where " + str);
             while (resultSet.next()) {
                 users.add(new User.UserBuilder().
                         setUser_id(resultSet.getInt(1)).
@@ -119,11 +113,9 @@ public class UsersDAO extends AbstractDAO<User>{
                         .setBlocked(!resultSet.getString(6).equals("N"))
                         .build());
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
-        }
-        finally {
+        } finally {
             closeStatement(statement);
             return users;
         }

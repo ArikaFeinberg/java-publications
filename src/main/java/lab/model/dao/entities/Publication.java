@@ -7,17 +7,19 @@ public class Publication {
     private Theme theme;
     private String name;
     private double price;
-    
-    Publication(PublicationBuilder publicationBuilder){
+
+    Publication(PublicationBuilder publicationBuilder) {
         this.publication_id = publicationBuilder.publication_id;
         this.name = publicationBuilder.name;
         this.theme = publicationBuilder.theme;
         this.price = publicationBuilder.price;
 
     }
-    Publication(){
+
+    Publication() {
 
     }
+
     public int getPublication_id() {
         return publication_id;
     }
@@ -50,7 +52,7 @@ public class Publication {
         this.price = price;
     }
 
-    public static class PublicationBuilder{
+    public static class PublicationBuilder {
         private int publication_id;
         private Theme theme;
         private String name;
@@ -76,7 +78,7 @@ public class Publication {
             return this;
         }
 
-        public Publication build(){
+        public Publication build() {
             return new Publication(this);
         }
     }

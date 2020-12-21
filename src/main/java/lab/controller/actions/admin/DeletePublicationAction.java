@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 public class DeletePublicationAction extends Action {
     @Override
     public String doAction(HttpServletRequest req, HttpServletResponse resp) {
-       if(req.getParameter("delete")!=null){
-           PublicationService publicationService = new PublicationService();
-           publicationService.deletePublication(Integer.parseInt(req.getParameter("delete")));
-       }
-       return null;
+        if (req.getParameter("delete") != null) {
+            PublicationService publicationService = new PublicationService();
+            publicationService.deletePublication(Integer.parseInt(req.getParameter("delete")));
+        }
+        return null;
     }
 }

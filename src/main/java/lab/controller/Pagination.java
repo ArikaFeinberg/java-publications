@@ -4,9 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 public class Pagination {
-    public static void pagination(HttpServletRequest req, ArrayList arr, String attributeName, int page_size){
+    public static void pagination(HttpServletRequest req, ArrayList arr, String attributeName, int page_size) {
 
-        if(arr!=null) {
+        if (arr != null) {
             if (arr.size() > page_size) {
 
                 int lastPage = (arr.size() / page_size) + 1;
@@ -25,7 +25,7 @@ public class Pagination {
 
                     req.setAttribute("page", page);
                 }
-            }else
+            } else
                 req.setAttribute(attributeName, arr);
         } else
             req.setAttribute(attributeName, null);

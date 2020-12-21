@@ -8,7 +8,7 @@ import lab.model.dao.entities.Publication;
 
 
 public class AccountsService {
-    public Account getUsersAccount(int id){
+    public Account getUsersAccount(int id) {
         AccountsDAO accountsDAO = (AccountsDAO) DAOAbstractFactory.getDAO("ACCOUNTS");
         Account account =
                 accountsDAO.getWhere("  userNumber  = '"
@@ -16,31 +16,33 @@ public class AccountsService {
         accountsDAO.close();
         return account;
     }
-    public void replenish(Account account, double score){
-        AccountsDAO accountsDAO =(AccountsDAO) DAOAbstractFactory.getDAO("ACCOUNTS");
+
+    public void replenish(Account account, double score) {
+        AccountsDAO accountsDAO = (AccountsDAO) DAOAbstractFactory.getDAO("ACCOUNTS");
         account.setScore(account.getScore() + score);
         accountsDAO.update(account);
         accountsDAO.close();
     }
-    public void makePayment(Account account, int pub_id){
-        AccountsDAO accountsDAO =(AccountsDAO) DAOAbstractFactory.getDAO("ACCOUNTS");
+
+    public void makePayment(Account account, int pub_id) {
+        AccountsDAO accountsDAO = (AccountsDAO) DAOAbstractFactory.getDAO("ACCOUNTS");
         Publication publication = new PublicationService().getById(pub_id);
-        if(account.getScore() - publication.getPrice() > 0) {
+        if (account.getScore() - publication.getPrice() > 0) {
             account.setScore(account.getScore() - publication.getPrice());
             accountsDAO.update(account);
         } else {
-            throw  new RuntimeException("Not enough money!");
+            throw new RuntimeException("Not enough money!");
         }
         accountsDAO.close();
     }
 
-    public void createAccount(int id){
-        AccountsDAO accountsDAO =(AccountsDAO) DAOAbstractFactory.getDAO("ACCOUNTS");
+    public void createAccount(int id) {
+        AccountsDAO accountsDAO = (AccountsDAO) DAOAbstractFactory.getDAO("ACCOUNTS");
         accountsDAO.insert(
                 new Account.AccountBuilder()
-                .setUser_id(id)
-                .setScore(0)
-                .build()
+                        .setUser_id(id)
+                        .setScore(0)
+                        .build()
         );
         accountsDAO.close();
     }

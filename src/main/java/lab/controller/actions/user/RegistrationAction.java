@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RegistrationAction extends Action {
     @Override
     public String doAction(HttpServletRequest req, HttpServletResponse resp) {
-        try{
+        try {
             UserService userService = new UserService();
 
             String username = req.getParameter("username");
@@ -22,17 +22,17 @@ public class RegistrationAction extends Action {
             Validator.isEmail(email);
             userService.registration(
                     new User.UserBuilder()
-                    .setUserName(username)
-                    .setPassword(password)
-                    .setEmail(email)
-                    .build()
+                            .setUserName(username)
+                            .setPassword(password)
+                            .setEmail(email)
+                            .build()
             );
-            User user = userService.getUser(username,password);
+            User user = userService.getUser(username, password);
             AccountsService accountsService = new AccountsService();
             accountsService.createAccount(user.getUser_id());
             return "Login";
-        }catch (Exception e){
-            req.setAttribute("error", e.getMessage() );
+        } catch (Exception e) {
+            req.setAttribute("error", e.getMessage());
         }
         return null;
     }

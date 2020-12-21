@@ -5,30 +5,28 @@ import lab.model.dao.entities.Subscription;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SubscriptionDAO extends AbstractDAO<Subscription>{
+public class SubscriptionDAO extends AbstractDAO<Subscription> {
     SubscriptionDAO(Connection connection) {
         super(connection);
     }
 
     @Override
     public Subscription getByID(int id) {
-        Statement statement=null;
+        Statement statement = null;
         Subscription subscription = null;
-        try{
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            statement=connection.createStatement();
-            ResultSet resultSet=statement.executeQuery("select * from Subscription where user_id = " + id);
-            if(resultSet.next()) {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from Subscription where user_id = " + id);
+            if (resultSet.next()) {
                 subscription = new Subscription.SubscriptionBuilder()
                         .setPublication_id(resultSet.getInt(1))
                         .setUser_id(resultSet.getInt(2))
                         .build();
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
-        }
-        finally {
+        } finally {
             closeStatement(statement);
             return subscription;
         }
@@ -36,17 +34,16 @@ public class SubscriptionDAO extends AbstractDAO<Subscription>{
 
     @Override
     public void insert(Subscription subscription) {
-        try{
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String sql = "INSERT INTO subscription(publication_id," +
                     "user_id) " +
                     "VALUES( ? , ? )";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,subscription.getPublication_id());
-            preparedStatement.setInt(2,subscription.getUser_id());
+            preparedStatement.setInt(1, subscription.getPublication_id());
+            preparedStatement.setInt(2, subscription.getUser_id());
             preparedStatement.executeUpdate();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
         }
     }
@@ -58,23 +55,21 @@ public class SubscriptionDAO extends AbstractDAO<Subscription>{
 
     @Override
     public ArrayList<Subscription> getAll() {
-        Statement statement=null;
+        Statement statement = null;
         ArrayList<Subscription> subscriptions = new ArrayList<>();
-        try{
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            statement=connection.createStatement();
-            ResultSet resultSet=statement.executeQuery("select * from Subscription");
-            while(resultSet.next()) {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from Subscription");
+            while (resultSet.next()) {
                 subscriptions.add(new Subscription.SubscriptionBuilder()
                         .setPublication_id(resultSet.getInt(1))
                         .setUser_id(resultSet.getInt(2))
                         .build());
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
-        }
-        finally {
+        } finally {
             closeStatement(statement);
             return subscriptions;
         }
@@ -82,37 +77,34 @@ public class SubscriptionDAO extends AbstractDAO<Subscription>{
 
     @Override
     public ArrayList<Subscription> getWhere(String str) {
-        Statement statement=null;
+        Statement statement = null;
         ArrayList<Subscription> subscriptions = new ArrayList<>();
-        try{
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            statement=connection.createStatement();
-            ResultSet resultSet=statement.executeQuery("select * from Subscription where " + str);
-            while(resultSet.next()) {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from Subscription where " + str);
+            while (resultSet.next()) {
                 subscriptions.add(new Subscription.SubscriptionBuilder()
                         .setPublication_id(resultSet.getInt(1))
                         .setUser_id(resultSet.getInt(2))
                         .build());
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
-        }
-        finally {
+        } finally {
             closeStatement(statement);
             return subscriptions;
         }
     }
 
-    public void delete(int id){
-        try{
+    public void delete(int id) {
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String sql = "DELETE FROM Subscription where Publication_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
         }
     }

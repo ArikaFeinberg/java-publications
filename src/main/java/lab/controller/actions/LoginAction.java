@@ -8,21 +8,21 @@ import lab.model.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LoginAction extends Action{
+public class LoginAction extends Action {
     @Override
     public String doAction(HttpServletRequest req, HttpServletResponse resp) {
-        try{
+        try {
             UserService userService = new UserService();
 
             String username = req.getParameter("username");
             String password = req.getParameter("password");
             Validator.isName(username);
-            User user = userService.getUser(username,password);
-            if(user==null){
-                req.setAttribute("error","Wrong username or password");
+            User user = userService.getUser(username, password);
+            if (user == null) {
+                req.setAttribute("error", "Wrong username or password");
                 return null;
             } else {
-                if(user.getRole()== Role.ADMIN){
+                if (user.getRole() == Role.ADMIN) {
                     req.getSession().setAttribute("user", user);
                     return "Admin/Home";
                 }
@@ -34,8 +34,8 @@ public class LoginAction extends Action{
                     return null;
                 }
             }
-        }catch (Exception e){
-            req.setAttribute("error", e.getMessage() );
+        } catch (Exception e) {
+            req.setAttribute("error", e.getMessage());
         }
         return null;
     }

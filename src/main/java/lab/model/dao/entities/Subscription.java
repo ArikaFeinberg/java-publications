@@ -3,14 +3,17 @@ package lab.model.dao.entities;
 public class Subscription {
     private int publication_id;
     private int user_id;
-    Subscription(){
+
+    Subscription() {
 
     }
-    Subscription(SubscriptionBuilder subscriptionBuilder){
+
+    Subscription(SubscriptionBuilder subscriptionBuilder) {
         this.publication_id = subscriptionBuilder.publication_id;
         this.user_id = subscriptionBuilder.user_id;
 
     }
+
     public int getPublication_id() {
         return publication_id;
     }
@@ -27,7 +30,7 @@ public class Subscription {
         this.user_id = user_id;
     }
 
-    public static class SubscriptionBuilder{
+    public static class SubscriptionBuilder {
         private int publication_id;
         private int user_id;
 
@@ -41,7 +44,7 @@ public class Subscription {
             return this;
         }
 
-        public Subscription build(){
+        public Subscription build() {
             return new Subscription(this);
         }
     }

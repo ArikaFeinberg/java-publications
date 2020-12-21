@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value="/Registration")
+@WebServlet(value = "/Registration")
 public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,10 +24,11 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Action action = new RegistrationAction();
-        String result = action.doAction(req,resp);
-        if(result == null){
-            doGet(req,resp);
-        }{
+        String result = action.doAction(req, resp);
+        if (result == null) {
+            doGet(req, resp);
+        }
+        {
             resp.sendRedirect(result);
         }
     }

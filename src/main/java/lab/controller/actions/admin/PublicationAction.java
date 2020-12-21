@@ -17,19 +17,19 @@ public class PublicationAction extends Action {
 
         ArrayList<Publication> publications = publicationService.getAll();
 
-        if(req.getParameter("search")!=null){
-            publications = publicationService.getByName(publications,req.getParameter("search"));
+        if (req.getParameter("search") != null) {
+            publications = publicationService.getByName(publications, req.getParameter("search"));
         }
-        if(req.getParameter("theme")!=null && !req.getParameter("theme").equals("")){
+        if (req.getParameter("theme") != null && !req.getParameter("theme").equals("")) {
             Theme theme = Theme.valueOf(req.getParameter("theme").toUpperCase());
-            publications = publicationService.getByTheme(publications,theme);
+            publications = publicationService.getByTheme(publications, theme);
         }
 
-        if(req.getParameter("sort")!=null){
-            publicationService.sort(publications,Integer.parseInt(req.getParameter("sort")));
+        if (req.getParameter("sort") != null) {
+            publicationService.sort(publications, Integer.parseInt(req.getParameter("sort")));
         }
 
-        Pagination.pagination(req,publications,"publications",5);
+        Pagination.pagination(req, publications, "publications", 5);
 
 
         return "/jsp/admin/publication.jsp";

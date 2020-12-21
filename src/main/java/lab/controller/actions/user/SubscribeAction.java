@@ -18,7 +18,7 @@ public class SubscribeAction extends Action {
             SubscriptionService subscriptionService = new SubscriptionService();
             AccountsService accountsService = new AccountsService();
             User user = (User) req.getSession().getAttribute("user");
-            accountsService.makePayment((Account) req.getSession().getAttribute("account"),publication_id);
+            accountsService.makePayment((Account) req.getSession().getAttribute("account"), publication_id);
             subscriptionService.add(
                     new Subscription
                             .SubscriptionBuilder()
@@ -27,8 +27,8 @@ public class SubscribeAction extends Action {
                             .build()
             );
 
-        }catch (Exception e){
-            req.setAttribute("error",e.getMessage());
+        } catch (Exception e) {
+            req.setAttribute("error", e.getMessage());
         }
         return null;
     }
