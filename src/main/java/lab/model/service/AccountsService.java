@@ -6,7 +6,6 @@ import lab.model.dao.DAOAbstractFactory;
 import lab.model.dao.entities.Account;
 import lab.model.dao.entities.Publication;
 
-
 public class AccountsService {
     public Account getUsersAccount(int id) {
         AccountsDAO accountsDAO = (AccountsDAO) DAOAbstractFactory.getDAO("ACCOUNTS");

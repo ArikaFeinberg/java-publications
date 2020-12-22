@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class AccountsDAO extends AbstractDAO<Account> {
+
     AccountsDAO(Connection connection) {
         super(connection);
     }
@@ -104,5 +105,4 @@ public class AccountsDAO extends AbstractDAO<Account> {
             return accounts;
         }
     }
-
 }

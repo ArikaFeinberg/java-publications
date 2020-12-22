@@ -1,6 +1,6 @@
 package lab.controller.validator.exeptions;
 
-public class WrongRangeException extends RuntimeException {
+public class WrongRangeException extends ValidationException {
     WrongRangeException() {
         super("This digit not in range.");
     }

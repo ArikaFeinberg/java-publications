@@ -28,8 +28,7 @@ public class LoginServlet extends HttpServlet {
         String result = action.doAction(req, resp);
         if (result == null) {
             doGet(req, resp);
-        }
-        {
+        } else {
             resp.sendRedirect(result);
         }
     }

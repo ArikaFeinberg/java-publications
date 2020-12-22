@@ -34,8 +34,7 @@ public class PublicationService {
 
     public ArrayList<Publication> getByTheme(ArrayList<Publication> publications, Theme theme) {
         ArrayList<Publication> res = new ArrayList<>();
-        for (Publication publication :
-                publications) {
+        for (Publication publication : publications) {
             if (publication.getTheme() == theme) {
                 res.add(publication);
             }
@@ -45,8 +44,7 @@ public class PublicationService {
 
     public ArrayList<Publication> getByName(ArrayList<Publication> publications, String name) {
         ArrayList<Publication> res = new ArrayList<Publication>();
-        for (Publication publication :
-                publications) {
+        for (Publication publication : publications) {
             if (publication.getName().equals(name)) {
                 res.add(publication);
             }

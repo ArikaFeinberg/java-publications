@@ -24,7 +24,6 @@ public class UserService {
         UsersDAO usersDAO = (UsersDAO) DAOAbstractFactory.getDAO("USERS");
         usersDAO.insert(user);
         usersDAO.close();
-
     }
 
     public ArrayList<User> getAll() {
