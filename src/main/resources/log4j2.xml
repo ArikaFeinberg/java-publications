@@ -37,7 +37,6 @@
             </Policies>
         </RollingFile>
 
-
     </Appenders>
     <Loggers>
         <Root level="all">
@@ -45,6 +44,5 @@
             <AppenderRef ref="FatalFileAppender" level="fatal"/>
             <AppenderRef ref="WarnFileAppender" level="warn"/>
         </Root>
-
     </Loggers>
 </Configuration>

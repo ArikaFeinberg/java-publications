@@ -14,7 +14,6 @@ public class Validator {
         }
     }
 
-
     public static void isNumber(String userName) throws NotDigitException {
         if (!userName.matches("\\d+")) {
             throw new NotDigitException("This is not a digit!");
