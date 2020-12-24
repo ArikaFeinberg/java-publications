@@ -3,19 +3,14 @@ import java.util.List;
 
 import lab.model.dao.DAOFactory;
 import lab.model.dao.PublicationsDAO;
-import lab.model.dao.SubscriptionDAO;
-import lab.model.dao.UsersDAO;
 import lab.model.dao.entities.Publication;
-import lab.model.dao.entities.Subscription;
-import lab.model.dao.entities.User;
-import lab.model.dao.entities.enums.Role;
 import lab.model.dao.entities.enums.Theme;
 import lab.model.service.PublicationService;
-import lab.model.service.SubscriptionService;
-import lab.model.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import org.junit.runner.RunWith;
 
 import static org.mockito.Matchers.anyString;

@@ -7,7 +7,9 @@ import lab.model.dao.entities.enums.Role;
 import lab.model.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import org.junit.runner.RunWith;
 
 import static org.mockito.Matchers.anyString;
