@@ -16,7 +16,7 @@ public class AccountsDAO extends AbstractDAO<Account> {
         Statement statement = null;
         Account account = null;
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from accounts_table where userNumber = " + id);
             if (resultSet.next()) {
@@ -36,7 +36,7 @@ public class AccountsDAO extends AbstractDAO<Account> {
     @Override
     public void insert(Account account) {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             String sql = "INSERT INTO accounts_table(userNumber,score) VALUES( ? , ? )";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setDouble(2, account.getScore());
@@ -50,7 +50,7 @@ public class AccountsDAO extends AbstractDAO<Account> {
     @Override
     public void update(Account account) {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             String sql = "UPDATE accounts_table " +
                     "SET score = ? WHERE userNumber = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -67,7 +67,7 @@ public class AccountsDAO extends AbstractDAO<Account> {
         Statement statement = null;
         ArrayList<Account> accounts = new ArrayList<>();
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from accounts_table");
             while (resultSet.next()) {
@@ -89,7 +89,7 @@ public class AccountsDAO extends AbstractDAO<Account> {
         Statement statement = null;
         ArrayList<Account> accounts = new ArrayList<>();
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from accounts_table where " + str);
             while (resultSet.next()) {

@@ -9,8 +9,8 @@ import lab.model.dao.entities.User;
 import lab.model.service.AccountsService;
 import lab.model.service.SubscriptionService;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,10 +30,9 @@ public class SubscribeAction extends Action {
             User user = (User) session.getAttribute("user");
             accountsService.makePayment((Account) session.getAttribute("account"), publication_id);
             subscriptionService.add(
-                    new Subscription
-                            .SubscriptionBuilder()
-                            .setUser_id(user.getUser_id())
+                    new Subscription.SubscriptionBuilder()
                             .setPublication_id(publication_id)
+                            .setUser_id(user.getUser_id())
                             .build()
             );
             log.info("User " + user.getUserName() + " has subscribed to " + publication_id);
@@ -42,6 +41,7 @@ public class SubscribeAction extends Action {
             log.error("Validation exception at subscribe action. Username: " + session.getAttribute("username"));
         } catch (Exception e) {
             req.setAttribute("error", "Database error");
+            e.printStackTrace();
             log.error("Database error at subscribe action. Username: " + session.getAttribute("username"));
         }
         return null;

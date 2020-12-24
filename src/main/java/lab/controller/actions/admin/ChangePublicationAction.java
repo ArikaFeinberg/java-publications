@@ -7,8 +7,8 @@ import lab.model.dao.entities.Publication;
 import lab.model.dao.entities.enums.Theme;
 import lab.model.service.PublicationService;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

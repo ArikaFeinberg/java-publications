@@ -12,11 +12,11 @@ import java.util.Properties;
 
 public class ConnectionPool {
 
-    private static final String PROPERTIES_FILE_NAME = "C:\\Users\\User\\IdeaProjects\\java-publications\\db.properties";
+    private static final String PROPERTIES_FILE_NAME = "/home/ivan/IdeaProjects/java-publications/src/main/resources/db.properties";
     private static volatile DataSource dataSource;
 
     private ConnectionPool() {
-
+        //getDataSource();
     }
 
     private static DataSource getDataSource() {
@@ -31,7 +31,7 @@ public class ConnectionPool {
                         properties.load(reader);
                         BasicDataSource ds = new BasicDataSource();
                         ds.setUrl(properties.getProperty("url"));
-                        ds.setDriverClassName(properties.getProperty("driver.class.name"));
+                        ds.setDriverClassName("org.postgresql.Driver");
                         ds.setUsername(properties.getProperty("username"));
                         ds.setPassword(properties.getProperty("password"));
                         ds.setMinIdle(5);
@@ -49,8 +49,10 @@ public class ConnectionPool {
 
     public static Connection getConnection() {
         try {
+            //Class.forName("org.postgresql.Driver");
             return getDataSource().getConnection();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException();
         }
     }

@@ -18,7 +18,7 @@ public class PublicationsDAO extends AbstractDAO<Publication> {
         Statement statement = null;
         Publication publication = null;
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Publications where publication_id = " + id);
             if (resultSet.next()) {
@@ -41,7 +41,7 @@ public class PublicationsDAO extends AbstractDAO<Publication> {
     public void insert(Publication publication) {
 
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             String sql = "INSERT INTO publications (theme,name,price) VALUES (?,?,?) ";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, publication.getTheme().toString());
@@ -57,7 +57,7 @@ public class PublicationsDAO extends AbstractDAO<Publication> {
     @Override
     public void update(Publication publication) {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             String sql = "UPDATE publications " +
                     "SET theme = ?," +
                     "name = ?," +
@@ -79,7 +79,7 @@ public class PublicationsDAO extends AbstractDAO<Publication> {
         Statement statement = null;
         ArrayList<Publication> publications = new ArrayList<>();
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from publications ");
             while (resultSet.next()) {
@@ -103,7 +103,7 @@ public class PublicationsDAO extends AbstractDAO<Publication> {
         Statement statement = null;
         ArrayList<Publication> publications = new ArrayList<>();
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Publications where " + str);
             while (resultSet.next()) {
@@ -124,7 +124,7 @@ public class PublicationsDAO extends AbstractDAO<Publication> {
 
     public void delete(int id) {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             String sql = "DELETE FROM Publications where Publication_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);

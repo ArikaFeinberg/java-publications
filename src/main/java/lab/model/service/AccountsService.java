@@ -1,5 +1,6 @@
 package lab.model.service;
 
+import lab.controller.validator.exeptions.ValidationException;
 import lab.model.dao.AccountsDAO;
 import lab.model.dao.DAOAbstractFactory;
 
@@ -10,8 +11,8 @@ public class AccountsService {
     public Account getUsersAccount(int id) {
         AccountsDAO accountsDAO = (AccountsDAO) DAOAbstractFactory.getDAO("ACCOUNTS");
         Account account =
-                accountsDAO.getWhere("  userNumber  = '"
-                        + id + "' ").get(0);
+                accountsDAO.getWhere("  userNumber  = "
+                        + id).get(0);
         accountsDAO.close();
         return account;
     }
@@ -30,7 +31,7 @@ public class AccountsService {
             account.setScore(account.getScore() - publication.getPrice());
             accountsDAO.update(account);
         } else {
-            throw new RuntimeException("Not enough money!");
+            throw new ValidationException("Not enough money!");
         }
         accountsDAO.close();
     }

@@ -16,16 +16,15 @@ public class UsersDAO extends AbstractDAO<User> {
         Statement statement = null;
         User user = null;
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from users where user_id = " + id);
             if (resultSet.next()) {
-                user = new User.UserBuilder().
-                        setUser_id(resultSet.getInt(1)).
-                        setUserName(resultSet.getString(2))
-                        .setRole(Role.valueOf(resultSet.getString(3)))
-                        .setPassword(resultSet.getString(4))
-                        .setEmail(resultSet.getString(5))
+                user = new User.UserBuilder().setUser_id(resultSet.getInt(1))
+                        .setEmail(resultSet.getString(2))
+                        .setPassword(resultSet.getString(3))
+                        .setUserName(resultSet.getString(4))
+                        .setRole(Role.valueOf(resultSet.getString(5)))
                         .setBlocked(!resultSet.getString(6).equals("N"))
                         .build();
             }
@@ -40,7 +39,7 @@ public class UsersDAO extends AbstractDAO<User> {
     @Override
     public void insert(User user) {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             String sql = "INSERT INTO Users(userName," +
                     "password," +
                     "email) " +
@@ -58,7 +57,7 @@ public class UsersDAO extends AbstractDAO<User> {
     @Override
     public void update(User user) {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             String sql = " UPDATE Users SET blocked = ? WHERE USER_ID = ? ";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getBlocked() ? "Y" : "N");
@@ -74,16 +73,16 @@ public class UsersDAO extends AbstractDAO<User> {
         Statement statement = null;
         ArrayList<User> users = new ArrayList<>();
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from users where role = 'USER' ");
             while (resultSet.next()) {
-                users.add(new User.UserBuilder().
-                        setUser_id(resultSet.getInt(1)).
-                        setUserName(resultSet.getString(2))
-                        .setRole(Role.valueOf(resultSet.getString(3)))
-                        .setPassword(resultSet.getString(4))
-                        .setEmail(resultSet.getString(5))
+                users.add(new User.UserBuilder()
+                        .setUser_id(resultSet.getInt(1))
+                        .setEmail(resultSet.getString(2))
+                        .setPassword(resultSet.getString(3))
+                        .setUserName(resultSet.getString(4))
+                        .setRole(Role.valueOf(resultSet.getString(5)))
                         .setBlocked(!resultSet.getString(6).equals("N"))
                         .build());
             }
@@ -97,19 +96,20 @@ public class UsersDAO extends AbstractDAO<User> {
 
     @Override
     public ArrayList<User> getWhere(String str) {
+        System.out.println(str);
         Statement statement = null;
         ArrayList<User> users = new ArrayList<>();
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from users where " + str);
             while (resultSet.next()) {
-                users.add(new User.UserBuilder().
-                        setUser_id(resultSet.getInt(1)).
-                        setUserName(resultSet.getString(2))
-                        .setRole(Role.valueOf(resultSet.getString(3)))
-                        .setPassword(resultSet.getString(4))
-                        .setEmail(resultSet.getString(5))
+                users.add(new User.UserBuilder()
+                        .setUser_id(resultSet.getInt(1))
+                        .setEmail(resultSet.getString(2))
+                        .setPassword(resultSet.getString(3))
+                        .setUserName(resultSet.getString(4))
+                        .setRole(Role.valueOf(resultSet.getString(5)))
                         .setBlocked(!resultSet.getString(6).equals("N"))
                         .build());
             }

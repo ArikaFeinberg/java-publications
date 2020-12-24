@@ -15,7 +15,7 @@ public class SubscriptionDAO extends AbstractDAO<Subscription> {
         Statement statement = null;
         Subscription subscription = null;
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Subscription where user_id = " + id);
             if (resultSet.next()) {
@@ -35,7 +35,7 @@ public class SubscriptionDAO extends AbstractDAO<Subscription> {
     @Override
     public void insert(Subscription subscription) {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             String sql = "INSERT INTO subscription(publication_id," +
                     "user_id) " +
                     "VALUES( ? , ? )";
@@ -44,6 +44,7 @@ public class SubscriptionDAO extends AbstractDAO<Subscription> {
             preparedStatement.setInt(2, subscription.getUser_id());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println(e);
         }
     }
@@ -58,7 +59,7 @@ public class SubscriptionDAO extends AbstractDAO<Subscription> {
         Statement statement = null;
         ArrayList<Subscription> subscriptions = new ArrayList<>();
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Subscription");
             while (resultSet.next()) {
@@ -80,7 +81,7 @@ public class SubscriptionDAO extends AbstractDAO<Subscription> {
         Statement statement = null;
         ArrayList<Subscription> subscriptions = new ArrayList<>();
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Subscription where " + str);
             while (resultSet.next()) {
@@ -99,7 +100,7 @@ public class SubscriptionDAO extends AbstractDAO<Subscription> {
 
     public void delete(int id) {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
             String sql = "DELETE FROM Subscription where Publication_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);

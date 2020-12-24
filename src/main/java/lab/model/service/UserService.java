@@ -11,9 +11,9 @@ public class UserService {
 
     public User getUser(String username, String password) {
         UsersDAO usersDAO = (UsersDAO) DAOAbstractFactory.getDAO("USERS");
-        ArrayList<User> users = usersDAO.getWhere(" userName  = '"
+        ArrayList<User> users = usersDAO.getWhere(" username  = '"
                 + username + "' AND password = '"
-                + password + "' ");
+                + password + "'");
         if (users == null || users.size() == 0) return null;
         User user = users.get(0);
         usersDAO.close();

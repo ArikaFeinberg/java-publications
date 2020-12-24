@@ -36,6 +36,7 @@ public class TestUserService {
 
     @Test
     public void get_user_ok() {
+        //TODO reflection in order to not address production DB
         User testUser = new User.UserBuilder().
                 setUser_id(0).
                 setUserName("test_username")
@@ -44,7 +45,7 @@ public class TestUserService {
                 .setEmail("test@email.com")
                 .setBlocked(false)
                 .build();
-        String sqlArgs = " userName  = '"
+        String sqlArgs = " username  = '"
                 + testUser.getUserName() + "' AND password = '"
                 + testUser.getPassword() + "' ";
         when(usersDAO.getByID(0)).thenReturn(testUser);
@@ -52,6 +53,11 @@ public class TestUserService {
         assertNotNull(user);
         assertEquals(testUser, user);
         verify(usersDAO).getWhere(sqlArgs);
+    }
+
+    @Test
+    public void registration_ok() {
+
     }
 
 }

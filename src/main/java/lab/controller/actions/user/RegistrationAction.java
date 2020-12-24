@@ -7,8 +7,8 @@ import lab.model.dao.entities.User;
 import lab.model.service.AccountsService;
 import lab.model.service.UserService;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +43,7 @@ public class RegistrationAction extends Action {
             req.setAttribute("error", e.getMessage());
             log.error("Validation exception at registration action. Username: " + req.getParameter("username"));
         } catch (Exception e) {
+            e.printStackTrace();
             req.setAttribute("error", "Database error");
             log.error("Database error at registration action. Username: " + req.getParameter("username"));
         }
