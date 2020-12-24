@@ -12,9 +12,11 @@ import java.util.Objects;
 public class SubscriptionService {
 
     private final SubscriptionDAO subscriptionDAO;
+    private final PublicationService publicationService;
 
     public SubscriptionService(DAOFactory factory) {
         subscriptionDAO = factory.createSubscriptionDAO();
+        publicationService = new PublicationService(factory);
     }
 
     public ArrayList<Publication> getClientSubscription(int id) {
@@ -26,29 +28,22 @@ public class SubscriptionService {
                 str.append(i.getPublication_id());
                 str.append(",");
             }
-
             String req = " Publication_id in (" + str.substring(0, str.length() - 1) + ") ";
-            PublicationService publicationService = new PublicationService(DAOFactory.FACTORY);
-
             return publicationService.getWhere(req);
         }
         return null;
     }
 
-    public ArrayList<Publication> getClientNotSubscription(int id) {
+    public ArrayList<Publication> getClientUnsubscribedPublications(int id) {
         ArrayList<Subscription> subscriptions = subscriptionDAO.getWhere(" user_id = " + id);
         subscriptionDAO.close();
-        PublicationService publicationService = new PublicationService(DAOFactory.FACTORY);
         if (Objects.requireNonNull(subscriptions).size() != 0) {
             StringBuilder str = new StringBuilder();
             for (Subscription i : subscriptions) {
                 str.append(i.getPublication_id());
                 str.append(",");
             }
-
             String req = " Publication_id not in (" + str.substring(0, str.length() - 1) + ") ";
-
-
             return publicationService.getWhere(req);
         }
         return publicationService.getAll();

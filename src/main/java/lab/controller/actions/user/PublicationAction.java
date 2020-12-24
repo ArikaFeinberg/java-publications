@@ -21,7 +21,7 @@ public class PublicationAction extends Action {
 
         User user = (User) req.getSession().getAttribute("user");
 
-        ArrayList<Publication> publications = subscriptionService.getClientNotSubscription(user.getUser_id());
+        ArrayList<Publication> publications = subscriptionService.getClientUnsubscribedPublications(user.getUser_id());
 
         if (req.getParameter("search") != null) {
             publications = publicationService.getByName(publications, req.getParameter("search"));

@@ -2,13 +2,13 @@ package lab.model.dao.entities;
 
 import lab.model.dao.entities.enums.Theme;
 
-public class Publication {
+public class Publication implements Cloneable {
     private int publication_id;
     private Theme theme;
     private String name;
     private double price;
 
-    Publication(PublicationBuilder publicationBuilder) {
+    public Publication(PublicationBuilder publicationBuilder) {
         this.publication_id = publicationBuilder.publication_id;
         this.name = publicationBuilder.name;
         this.theme = publicationBuilder.theme;
