@@ -3,6 +3,7 @@ package lab.controller.actions.user;
 import lab.controller.actions.Action;
 import lab.controller.actions.ExitAction;
 import lab.controller.validator.exeptions.ValidationException;
+import lab.model.dao.DAOFactory;
 import lab.model.dao.entities.Account;
 import lab.model.dao.entities.Subscription;
 import lab.model.dao.entities.User;
@@ -25,8 +26,8 @@ public class SubscribeAction extends Action {
         HttpSession session = req.getSession();
         try {
             int publication_id = Integer.parseInt(req.getParameter("publication_id"));
-            SubscriptionService subscriptionService = new SubscriptionService();
-            AccountsService accountsService = new AccountsService();
+            SubscriptionService subscriptionService = new SubscriptionService(DAOFactory.FACTORY);
+            AccountsService accountsService = new AccountsService(DAOFactory.FACTORY);
             User user = (User) session.getAttribute("user");
             accountsService.makePayment((Account) session.getAttribute("account"), publication_id);
             subscriptionService.add(

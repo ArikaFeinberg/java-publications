@@ -31,16 +31,11 @@ public abstract class AbstractDAO<T> {
         }
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-
-    }
-
     public void close() {
         try {
             connection.close();
         } catch (SQLException e) {
-
+            throw new RuntimeException("Could not close connection");
         }
     }
 }

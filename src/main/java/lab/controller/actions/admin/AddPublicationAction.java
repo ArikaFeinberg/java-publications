@@ -3,6 +3,7 @@ package lab.controller.actions.admin;
 import lab.controller.actions.Action;
 import lab.controller.validator.Validator;
 import lab.controller.validator.exeptions.ValidationException;
+import lab.model.dao.DAOFactory;
 import lab.model.dao.entities.Publication;
 import lab.model.dao.entities.enums.Theme;
 import lab.model.service.PublicationService;
@@ -25,7 +26,7 @@ public class AddPublicationAction extends Action {
             String score = req.getParameter("score");
             Validator.isDouble(score);
 
-            PublicationService publicationService = new PublicationService();
+            PublicationService publicationService = new PublicationService(DAOFactory.FACTORY);
 
             publicationService.insertPublication(
                     new Publication.PublicationBuilder()

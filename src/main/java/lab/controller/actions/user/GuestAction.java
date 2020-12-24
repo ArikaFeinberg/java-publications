@@ -2,6 +2,7 @@ package lab.controller.actions.user;
 
 import lab.controller.actions.Action;
 import lab.controller.Pagination;
+import lab.model.dao.DAOFactory;
 import lab.model.dao.entities.Publication;
 import lab.model.dao.entities.enums.Theme;
 import lab.model.service.PublicationService;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class GuestAction extends Action {
     @Override
     public String doAction(HttpServletRequest req, HttpServletResponse resp) {
-        PublicationService publicationService = new PublicationService();
+        PublicationService publicationService = new PublicationService(DAOFactory.FACTORY);
 
         ArrayList<Publication> publications = publicationService.getAll();
 

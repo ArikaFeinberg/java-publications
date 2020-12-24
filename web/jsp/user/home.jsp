@@ -18,14 +18,14 @@
 <p>On your balance: <c:out value="${account.score}" /></p>
 </div>
 <c:if test="${subscriptions==null}">
-<p>You dont have subscription!</p>
+<p>You are not subscribed to anything.</p>
 </c:if>
 <c:forEach var="publication" items="${subscriptions}">
 <div>
 <p>
 Name: "<c:out value="${publication.name}" />"
 Theme: "<c:out value="${publication.theme}" />"   
-Score: <c:out value="${publication.price}" />
+Price: <c:out value="${publication.price}" />
 </p>
 </div>
 </c:forEach>

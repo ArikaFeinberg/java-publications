@@ -1,7 +1,8 @@
 package lab.model.service;
 
-import lab.model.dao.DAOAbstractFactory;
+import lab.model.dao.DAOFactory;
 import lab.model.dao.PublicationsDAO;
+import lab.model.dao.Tables;
 import lab.model.dao.entities.Publication;
 import lab.model.dao.entities.enums.Theme;
 
@@ -10,15 +11,19 @@ import java.util.Comparator;
 
 public class PublicationService {
 
+    private final PublicationsDAO publicationsDAO;
+
+    public PublicationService(DAOFactory factory) {
+        publicationsDAO = factory.createPublicationsDAO();
+    }
+
     public Publication getById(int id) {
-        PublicationsDAO publicationsDAO = (PublicationsDAO) DAOAbstractFactory.getDAO("PUBLICATIONS");
         Publication publication = publicationsDAO.getByID(id);
         publicationsDAO.close();
         return publication;
     }
 
     public ArrayList<Publication> getAll() {
-        PublicationsDAO publicationsDAO = (PublicationsDAO) DAOAbstractFactory.getDAO("PUBLICATIONS");
         ArrayList<Publication> publications = publicationsDAO.getAll();
         publicationsDAO.close();
         return publications;
@@ -43,7 +48,7 @@ public class PublicationService {
     }
 
     public ArrayList<Publication> getByName(ArrayList<Publication> publications, String name) {
-        ArrayList<Publication> res = new ArrayList<Publication>();
+        ArrayList<Publication> res = new ArrayList<>();
         for (Publication publication : publications) {
             if (publication.getName().equals(name)) {
                 res.add(publication);
@@ -53,27 +58,23 @@ public class PublicationService {
     }
 
     public void deletePublication(int id) {
-        PublicationsDAO publicationsDAO = (PublicationsDAO) DAOAbstractFactory.getDAO("PUBLICATIONS");
-        SubscriptionService subscriptionService = new SubscriptionService();
+        SubscriptionService subscriptionService = new SubscriptionService(DAOFactory.FACTORY);
         subscriptionService.delete(id);
         publicationsDAO.delete(id);
         publicationsDAO.close();
     }
 
     public void updatePublication(Publication publication) {
-        PublicationsDAO publicationsDAO = (PublicationsDAO) DAOAbstractFactory.getDAO("PUBLICATIONS");
         publicationsDAO.update(publication);
         publicationsDAO.close();
     }
 
     public void insertPublication(Publication publication) {
-        PublicationsDAO publicationsDAO = (PublicationsDAO) DAOAbstractFactory.getDAO("PUBLICATIONS");
         publicationsDAO.insert(publication);
         publicationsDAO.close();
     }
 
     public ArrayList<Publication> getWhere(String str) {
-        PublicationsDAO publicationsDAO = (PublicationsDAO) DAOAbstractFactory.getDAO("PUBLICATIONS");
         ArrayList<Publication> arr = publicationsDAO.getWhere(str);
         publicationsDAO.close();
         return arr;

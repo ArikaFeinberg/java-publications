@@ -1,6 +1,7 @@
 package lab.controller.actions.admin;
 
 import lab.controller.actions.Action;
+import lab.model.dao.DAOFactory;
 import lab.model.service.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,14 +16,14 @@ public class BlockUserAction extends Action {
     @Override
     public String doAction(HttpServletRequest req, HttpServletResponse resp) {
         if (req.getParameter("unblock") != null) {
-            UserService userService = new UserService();
+            UserService userService = new UserService(DAOFactory.FACTORY);
             int id = Integer.parseInt(req.getParameter("unblock"));
             userService.unblock(id);
             log.info("User (id): " + id + " has been unblocked by "
                     + req.getSession().getAttribute("username"));
         }
         if (req.getParameter("block") != null) {
-            UserService userService = new UserService();
+            UserService userService = new UserService(DAOFactory.FACTORY);
             int id = Integer.parseInt(req.getParameter("block"));
             userService.block(id);
             log.info("User (id): " + id + " has been blocked by "

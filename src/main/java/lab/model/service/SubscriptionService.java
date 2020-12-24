@@ -1,7 +1,8 @@
 package lab.model.service;
 
-import lab.model.dao.DAOAbstractFactory;
+import lab.model.dao.DAOFactory;
 import lab.model.dao.SubscriptionDAO;
+import lab.model.dao.Tables;
 import lab.model.dao.entities.Publication;
 import lab.model.dao.entities.Subscription;
 
@@ -10,8 +11,13 @@ import java.util.Objects;
 
 public class SubscriptionService {
 
+    private final SubscriptionDAO subscriptionDAO;
+
+    public SubscriptionService(DAOFactory factory) {
+        subscriptionDAO = factory.createSubscriptionDAO();
+    }
+
     public ArrayList<Publication> getClientSubscription(int id) {
-        SubscriptionDAO subscriptionDAO = (SubscriptionDAO) DAOAbstractFactory.getDAO("SUBSCRIPTION");
         ArrayList<Subscription> subscriptions = subscriptionDAO.getWhere(" user_id = " + id);
         subscriptionDAO.close();
         if (Objects.requireNonNull(subscriptions).size() != 0) {
@@ -22,7 +28,7 @@ public class SubscriptionService {
             }
 
             String req = " Publication_id in (" + str.substring(0, str.length() - 1) + ") ";
-            PublicationService publicationService = new PublicationService();
+            PublicationService publicationService = new PublicationService(DAOFactory.FACTORY);
 
             return publicationService.getWhere(req);
         }
@@ -30,10 +36,9 @@ public class SubscriptionService {
     }
 
     public ArrayList<Publication> getClientNotSubscription(int id) {
-        SubscriptionDAO subscriptionDAO = (SubscriptionDAO) DAOAbstractFactory.getDAO("SUBSCRIPTION");
         ArrayList<Subscription> subscriptions = subscriptionDAO.getWhere(" user_id = " + id);
         subscriptionDAO.close();
-        PublicationService publicationService = new PublicationService();
+        PublicationService publicationService = new PublicationService(DAOFactory.FACTORY);
         if (Objects.requireNonNull(subscriptions).size() != 0) {
             StringBuilder str = new StringBuilder();
             for (Subscription i : subscriptions) {
@@ -50,13 +55,11 @@ public class SubscriptionService {
     }
 
     public void add(Subscription subscription) {
-        SubscriptionDAO subscriptionDAO = (SubscriptionDAO) DAOAbstractFactory.getDAO("SUBSCRIPTION");
         subscriptionDAO.insert(subscription);
         subscriptionDAO.close();
     }
 
     public void delete(int id) {
-        SubscriptionDAO subscriptionDAO = (SubscriptionDAO) DAOAbstractFactory.getDAO("SUBSCRIPTION");
         subscriptionDAO.delete(id);
         subscriptionDAO.close();
     }

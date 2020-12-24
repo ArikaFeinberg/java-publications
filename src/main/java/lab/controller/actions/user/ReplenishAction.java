@@ -3,6 +3,7 @@ package lab.controller.actions.user;
 import lab.controller.actions.Action;
 import lab.controller.validator.Validator;
 import lab.controller.validator.exeptions.ValidationException;
+import lab.model.dao.DAOFactory;
 import lab.model.dao.entities.Account;
 import lab.model.service.AccountsService;
 
@@ -23,7 +24,7 @@ public class ReplenishAction extends Action {
         try {
             String score = req.getParameter("score");
             Validator.isDouble(score);
-            AccountsService accountsService = new AccountsService();
+            AccountsService accountsService = new AccountsService(DAOFactory.FACTORY);
             Account account = (Account) session.getAttribute("account");
             accountsService.replenish(account, Double.parseDouble(score));
             req.setAttribute("error", "Replenish is done!");

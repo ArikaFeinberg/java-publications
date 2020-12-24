@@ -1,6 +1,7 @@
 package lab.controller.actions.admin;
 
 import lab.controller.actions.Action;
+import lab.model.dao.DAOFactory;
 import lab.model.service.PublicationService;
 
 import org.apache.log4j.LogManager;
@@ -16,7 +17,7 @@ public class DeletePublicationAction extends Action {
     @Override
     public String doAction(HttpServletRequest req, HttpServletResponse resp) {
         if (req.getParameter("delete") != null) {
-            PublicationService publicationService = new PublicationService();
+            PublicationService publicationService = new PublicationService(DAOFactory.FACTORY);
             int publicationId = Integer.parseInt(req.getParameter("delete"));
             publicationService.deletePublication(publicationId);
             log.info("Publication " + publicationId
